@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061429">
+  <title>CryptoVault | Crypto Payments</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" data-page="dashboard" aria-label="CryptoVault home">
+        <span class="brand-mark">◈</span><span>Crypto<span class="brand-light">Vault</span></span>
+      </a>
+      <div class="network-pill"><span class="pulse-dot"></span><span><b>Bitcoin Testnet4</b><small id="sidebar-node-status">Checking node…</small></span></div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+        <button class="nav-item" data-page="wallets"><span class="nav-icon">▣</span>Wallets</button>
+        <button class="nav-item" data-page="send"><span class="nav-icon">↗</span>Send external payment</button>
+        <button class="nav-item" data-page="internal"><span class="nav-icon">⇄</span>Internal transfer</button>
+        <button class="nav-item" data-page="transactions"><span class="nav-icon">▤</span>Transactions</button>
+        <button class="nav-item" data-page="network"><span class="nav-icon">◎</span>Bitcoin network</button>
+      </nav>
+      <div class="sidebar-bottom"><span class="avatar">K</span><span class="sidebar-user"><b>CryptoVault</b><small>Local development</small></span><span class="online-dot"></span></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button id="menu-toggle" class="icon-button mobile-menu" aria-label="Open menu">☰</button>
+        <div class="crumb"><span class="crumb-muted">Workspace</span><span>/</span><b id="page-crumb">Dashboard</b></div>
+        <div class="topbar-right"><span class="env-badge"><span class="pulse-dot"></span> TESTNET4</span><button id="refresh-all" class="button button-quiet">↻ <span>Refresh data</span></button><div class="user-chip"><span class="avatar small-avatar">K</span><span><b>Kanad</b><small>Developer</small></span></div></div>
+      </header>
+
+      <div class="page-wrap">
+        <section class="page-section active" id="page-dashboard">
+          <div class="page-heading"><div><p class="eyebrow">YOUR CRYPTO WORKSPACE</p><h1>Welcome back, Kanad <span class="wave">✦</span></h1><p class="subheading">Manage your wallets, send payments, and track blockchain activity.</p></div><span class="date-chip" id="today-date">Testnet environment</span></div>
+          <div class="notice notice-info"><span class="notice-icon">ⓘ</span><div><b>Test environment only</b><p>External Bitcoin payments use your configured Bitcoin Core Testnet4 wallet. Testnet coins have no intended mainnet monetary value.</p></div></div>
+          <div class="metric-grid">
+            <article class="metric-card primary-metric"><div class="metric-top"><span class="metric-icon bitcoin-icon">₿</span><span class="metric-label">Bitcoin wallet</span><span class="metric-symbol">BTC</span></div><div class="metric-value" id="btc-balance">— BTC</div><div class="metric-foot"><span id="btc-wallet-count">Loading wallet data…</span><button class="text-button" data-page="wallets">View wallets ↗</button></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-icon blue-icon">▤</span><span class="metric-label">Total wallets</span></div><div class="metric-value" id="wallet-count">—</div><div class="metric-foot"><span>Across supported currencies</span><button class="text-button" data-page="wallets">Manage ↗</button></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-icon violet-icon">⇄</span><span class="metric-label">Payments</span></div><div class="metric-value" id="payment-count">—</div><div class="metric-foot"><span id="broadcasted-count">— awaiting final status</span><button class="text-button" data-page="transactions">Activity ↗</button></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-icon green-icon">◉</span><span class="metric-label">Bitcoin Core</span></div><div class="metric-value compact-value" id="node-status">Checking…</div><div class="metric-foot"><span id="node-foot">Local RPC connection</span><button class="text-button" data-page="network">Details ↗</button></div></article>
+          </div>
+
+          <div class="content-grid dashboard-grid">
+            <section class="panel transactions-panel"><div class="panel-heading"><div><h2>Recent transactions</h2><p>Latest payments recorded by CryptoVault</p></div><button class="button button-outline button-small" data-page="transactions">View all ↗</button></div><div class="table-wrap"><table><thead><tr><th>Payment</th><th>Type</th><th>Amount</th><th>Status</th><th>TXID</th></tr></thead><tbody id="recent-transactions"><tr><td colspan="5" class="table-empty">Loading transactions…</td></tr></tbody></table></div></section>
+            <section class="panel network-panel"><div class="panel-heading"><div><h2>Bitcoin network</h2><p>Your local Bitcoin Core node</p></div><span id="node-badge" class="status-badge status-pending">CHECKING</span></div><div class="network-hero"><div class="big-bitcoin">₿</div><div><h3>Bitcoin Testnet4</h3><p>RPC-connected development node</p></div></div><div class="info-list"><div><span>Network</span><b id="network-name">—</b></div><div><span>Block height</span><b id="block-height">—</b></div><div><span>Sync progress</span><b id="sync-progress">—</b></div><div><span>Pruned node</span><b id="pruned-state">—</b></div></div><button class="button button-primary full-button" data-page="network">View network details</button></section>
+          </div>
+        </section>
+
+        <section class="page-section" id="page-wallets">
+          <div class="page-heading"><div><p class="eyebrow">ACCOUNT MANAGEMENT</p><h1>Your wallets</h1><p class="subheading">View wallet records returned by your CryptoVault backend.</p></div><button id="refresh-wallets" class="button button-outline">↻ Refresh wallets</button></div>
+          <div class="notice notice-warn"><span class="notice-icon">!</span><div><b>Balance-source note</b><p>Database wallet balances and the Bitcoin Core test wallet are currently separate systems. Do not treat these balances as reconciled funds yet.</p></div></div>
+          <div id="wallet-card-grid" class="wallet-grid"><div class="empty-card">Loading wallets…</div></div>
+          <section class="panel section-panel"><div class="panel-heading"><div><h2>Wallet records</h2><p>Wallet addresses and account relationships returned by the API</p></div></div><div class="table-wrap"><table><thead><tr><th>Wallet ID</th><th>Currency</th><th>Address</th><th>Balance</th><th>Status</th><th>User</th></tr></thead><tbody id="wallet-table"><tr><td colspan="6" class="table-empty">Loading wallets…</td></tr></tbody></table></div></section>
+        </section>
+
+        <section class="page-section" id="page-send">
+          <div class="page-heading"><div><p class="eyebrow">BLOCKCHAIN PAYMENTS</p><h1>Send external payment</h1><p class="subheading">Submit a Bitcoin Testnet4 payment through your Spring Boot backend.</p></div><span class="env-badge"><span class="pulse-dot"></span> TESTNET4</span></div>
+          <div class="notice notice-warn"><span class="notice-icon">!</span><div><b>Development mode — real testnet broadcast</b><p>This form can broadcast a real Testnet4 transaction. The current server limit is 0.0001 BTC per request. The configured Bitcoin Core wallet is used for the blockchain send; database wallet balance reconciliation is not yet production-ready.</p></div></div>
+          <div class="form-layout"><section class="panel form-panel"><div class="panel-heading"><div><h2>Payment details</h2><p>Enter a valid Bitcoin Testnet4 destination.</p></div><span class="step-label">STEP 01</span></div><form id="external-payment-form">
+            <label for="sender-wallet">CryptoVault sender wallet ID</label><select id="sender-wallet" required><option value="">Loading wallets…</option></select><small class="field-hint">This identifies the database payment record's sender wallet.</small>
+            <label for="receiver-address">Recipient Bitcoin address <span class="required-mark">*</span></label><input id="receiver-address" name="receiverAddress" type="text" placeholder="tb1… (Testnet4 address)" autocomplete="off" required minlength="14"><small class="field-hint">Use an address intended for Testnet4.</small>
+            <div class="field-row"><div class="field-group"><label for="payment-amount">Amount (BTC) <span class="required-mark">*</span></label><input id="payment-amount" name="amount" type="number" min="0.00000001" max="0.0001" step="0.00000001" placeholder="0.00010000" required><small class="field-hint">Maximum 0.0001 BTC per test payment.</small></div><div class="field-group"><label for="payment-currency">Currency</label><select id="payment-currency" required><option value="Bitcoin">Bitcoin (BTC)</option></select><small class="field-hint">Testnet4 only</small></div></div>
+            <label for="idempotency-key">Idempotency key</label><div class="input-with-action"><input id="idempotency-key" type="text" required><button type="button" id="new-idempotency" class="button button-quiet button-small">Generate</button></div><small class="field-hint">Keep the same key when safely retrying the same logical request.</small>
+            <button id="submit-payment" type="submit" class="button button-primary full-button submit-button"><span>↗</span> Submit testnet payment</button><p class="form-disclaimer">Review the destination and amount carefully. Do not click submit repeatedly if a request times out.</p>
+          </form></section><aside class="side-stack"><section class="panel payment-summary"><div class="panel-heading"><div><h2>Payment summary</h2><p>Review before broadcast</p></div></div><div class="summary-coin"><span class="bitcoin-icon round-coin">₿</span><div><b id="summary-amount">0.00000000 BTC</b><small>Testnet4 amount</small></div></div><div class="summary-divider"></div><div class="info-list"><div><span>Network</span><b>Bitcoin Testnet4</b></div><div><span>Max per request</span><b>0.00010000 BTC</b></div><div><span>Fee</span><b>Calculated by node</b></div></div></section><section class="panel checklist-panel"><h2>What happens next?</h2><div class="check-item"><span>✓</span><div><b>Validate request</b><small>Spring Boot validates the request fields.</small></div></div><div class="check-item"><span>✓</span><div><b>Queue processing</b><small>External payment processor works asynchronously.</small></div></div><div class="check-item"><span>↻</span><div><b>Broadcast & track</b><small>Bitcoin Core returns a TXID; confirmation processing updates status.</small></div></div></section></aside></div>
+          <section id="payment-result" class="panel result-panel hidden" aria-live="polite"></section>
+        </section>
+
+        <section class="page-section" id="page-internal">
+          <div class="page-heading"><div><p class="eyebrow">CRYPTO TRANSFERS</p><h1>Internal transfer</h1><p class="subheading">Transfer value between CryptoVault wallet records.</p></div></div>
+          <div class="notice notice-info"><span class="notice-icon">ⓘ</span><div><b>Database wallet transfer</b><p>This calls your existing <code>POST /payments/internalTransfer</code> endpoint. It does not broadcast a Bitcoin blockchain transaction.</p></div></div>
+          <div class="form-layout"><section class="panel form-panel"><div class="panel-heading"><div><h2>Transfer details</h2><p>Select sender and recipient wallet records.</p></div></div><form id="internal-payment-form"><label for="internal-sender">Sender wallet</label><select id="internal-sender" required><option value="">Loading wallets…</option></select><label for="internal-receiver">Receiver wallet</label><select id="internal-receiver" required><option value="">Choose a different wallet</option></select><div class="field-row"><div class="field-group"><label for="internal-amount">Amount</label><input id="internal-amount" type="number" step="0.00000001" min="0.00000001" required placeholder="0.001"></div><div class="field-group"><label for="internal-currency">Cryptocurrency</label><select id="internal-currency" required><option value="Bitcoin">Bitcoin</option><option value="Ethereum">Ethereum</option><option value="Dogecoin">Dogecoin</option></select></div></div><label for="internal-idempotency">Idempotency key (if required by API)</label><input id="internal-idempotency" type="text"><button type="submit" class="button button-primary full-button">⇄ Submit internal transfer</button></form></section><section class="panel checklist-panel"><h2>Before submitting</h2><div class="check-item"><span>✓</span><div><b>Wallet compatibility</b><small>Sender and receiver should use the same cryptocurrency.</small></div></div><div class="check-item"><span>✓</span><div><b>Available balance</b><small>The backend remains responsible for balance validation and concurrency control.</small></div></div><div class="check-item"><span>ⓘ</span><div><b>Request format</b><small>If your PaymentRequest DTO differs from these fields, the response will show the validation error so we can align it.</small></div></div></section></div>
+        </section>
+
+        <section class="page-section" id="page-transactions">
+          <div class="page-heading"><div><p class="eyebrow">PAYMENT ACTIVITY</p><h1>Transaction history</h1><p class="subheading">Review internal transfers and external blockchain payments.</p></div><button id="refresh-payments" class="button button-outline">↻ Refresh activity</button></div>
+          <section class="panel"><div class="table-toolbar"><div><h2>All payments</h2><p id="payment-table-caption">Loading payment records…</p></div><div class="toolbar-filters"><input id="payment-search" type="search" placeholder="Search ID or TXID…" aria-label="Search payments"><select id="status-filter" aria-label="Filter payment status"><option value="ALL">All statuses</option><option>PENDING</option><option>PROCESSING</option><option>BROADCASTED</option><option>COMPLETED</option><option>FAILED</option></select></div></div><div class="table-wrap"><table class="full-table"><thead><tr><th>ID</th><th>Type</th><th>Cryptocurrency</th><th>Amount</th><th>Status</th><th>Created</th><th>Transaction hash</th><th>Action</th></tr></thead><tbody id="payments-table"><tr><td colspan="8" class="table-empty">Loading payments…</td></tr></tbody></table></div></section>
+        </section>
+
+        <section class="page-section" id="page-network">
+          <div class="page-heading"><div><p class="eyebrow">NODE CONNECTIVITY</p><h1>Bitcoin network status</h1><p class="subheading">Information returned by your local Bitcoin Core node through JSON-RPC.</p></div><button id="refresh-node" class="button button-outline">↻ Refresh node</button></div>
+          <div class="metric-grid network-metrics"><article class="metric-card"><div class="metric-top"><span class="metric-icon green-icon">◉</span><span class="metric-label">RPC status</span></div><div class="metric-value compact-value" id="network-rpc-status">Checking…</div><div class="metric-foot"><span>127.0.0.1:48332</span></div></article><article class="metric-card"><div class="metric-top"><span class="metric-icon blue-icon">▥</span><span class="metric-label">Validated blocks</span></div><div class="metric-value" id="network-blocks">—</div><div class="metric-foot"><span>Best validated chain height</span></div></article><article class="metric-card"><div class="metric-top"><span class="metric-icon violet-icon">⇧</span><span class="metric-label">Headers</span></div><div class="metric-value" id="network-headers">—</div><div class="metric-foot"><span>Header height</span></div></article><article class="metric-card"><div class="metric-top"><span class="metric-icon orange-icon">◈</span><span class="metric-label">Pruning</span></div><div class="metric-value compact-value" id="network-pruning">—</div><div class="metric-foot"><span id="network-prune-size">Storage target</span></div></article></div>
+          <section class="panel network-detail-panel"><div class="panel-heading"><div><h2>Node details</h2><p>Live values from <code>getblockchaininfo</code></p></div><span id="network-chain-badge" class="status-badge status-pending">UNKNOWN</span></div><div class="detail-grid"><div><span>Chain</span><b id="detail-chain">—</b></div><div><span>Best block hash</span><b class="mono breakable" id="detail-best-hash">—</b></div><div><span>Verification progress</span><b id="detail-verification">—</b></div><div><span>Initial block download</span><b id="detail-ibd">—</b></div><div><span>Disk size</span><b id="detail-disk">—</b></div><div><span>Prune height</span><b id="detail-prune-height">—</b></div></div></section>
+        </section>
+        <footer class="footer"><span>◈ CryptoVault</span><span>Local development build · Bitcoin Testnet4</span><button id="footer-refresh" class="text-button">Refresh data ↻</button></footer>
+      </div>
+    </main>
+  </div>
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <div id="loading-overlay" class="loading-overlay hidden"><div class="loader"></div><span id="loading-label">Working…</span></div>
+  <script src="/js/app.js" defer></script>
+</body>
+</html>
